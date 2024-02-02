@@ -24,15 +24,8 @@ jobs:
       working-directory: ${{github.workspace}}/build
       run: ${{github.workspace}}/build/md2html_TEST
 
-    - name: Gcovr Action
-      uses: threeal/gcovr-action@v1.0.0
-      with:
-        root: ${{github.workspace}}
-        excludes: |
-          ./build
-          main.cpp
     - name: GCOVR Action
-      working-directory: ${{github.workspace}}/build
       run: |
+        cd build
         python -m pip install gcovr
         python -m gcovr -r .. --exclude=../main.cpp --exclude=_deps/
