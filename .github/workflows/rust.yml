@@ -8,7 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
       - name: Build
         run: cargo build
       - name: rust-tarpaulin
         uses: actions-rs/tarpaulin@v0.1.0
+        with:
+          args: '-- --nocapture --shuffle -Z unstable-options'
