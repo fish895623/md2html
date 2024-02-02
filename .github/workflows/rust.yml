@@ -15,6 +15,8 @@ jobs:
           override: true
       - name: Build
         run: cargo build
+      - name: install tarpaulin
+        run: cargo install cargo-tarpaulin
       - name: rust-tarpaulin
         run: |
           cargo tarpaulin -- --nocapture --color=always --shuffle -Z unstable-options
