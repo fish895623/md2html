@@ -12,7 +12,3 @@ jobs:
         run: cargo build
       - name: rust-tarpaulin
         uses: actions-rs/tarpaulin@v0.1.0
-        with:
-          args: -- --nocapture --shuffle -Z unstable-options
-          
-      
