@@ -1,0 +1,5 @@
+tab_spaces = 2
+trailing_semicolon = true
+where_single_line = true
+
+imports_granularity = "Crate"
