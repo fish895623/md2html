@@ -42,3 +42,8 @@ TEST(Parsing, HeaderLevel) {
   auto val = parsing_header_level("## Hello World");
   EXPECT_EQ(val, 2);
 }
+
+
+TEST(Parsing, FindAllMarkdownFilesInPaths) {
+  find_all_markdown_files_in_paths(".");
+}
