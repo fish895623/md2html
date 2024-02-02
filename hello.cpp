@@ -33,11 +33,16 @@ int parsing_header_level(const string &context) {
   return begin->str().size();
 }
 
-void find_all_markdown_files_in_paths(const string &path) {
+vector<string> find_all_markdown_files_in_paths(const string &path,
+                                                const vector<string> exclude) {
+  vector<string> files;
+
   for (const fs::directory_entry &dir_entry :
        fs::recursive_directory_iterator(path)) {
     if (dir_entry.is_regular_file() && dir_entry.path().extension() == ".md") {
-      cout << dir_entry.path() << endl;
+      files.push_back(dir_entry.path().string());
     }
   }
+
+  return files;
 }

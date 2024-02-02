@@ -10,7 +10,7 @@ struct Context {
 };
 
 string parse_header(const string &context);
-string convert_header_to_html(const string &context, const int level = 1);
+string convert_header_to_html(const string &context, int level = 1);
 /** @brief Parse the header level
  *
  * @param context The string to parse
@@ -21,4 +21,5 @@ int parsing_header_level(const string &context);
 /**
  * @brief Find all markdown files in path
  */
-void find_all_markdown_files_in_paths(const string &path);
+vector<string> find_all_markdown_files_in_paths(const string &path,
+                                                vector<string> exclude);
