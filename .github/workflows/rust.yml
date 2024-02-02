@@ -16,7 +16,5 @@ jobs:
       - name: Build
         run: cargo build
       - name: rust-tarpaulin
-        uses: actions-rs/tarpaulin@v0.1.0
-        with:
-          version: "0.27.3"
-          args: '-- --test-threads 1'
+        run: |
+          cargo tarpaulin -- --nocapture --color=always --shuffle -Z unstable-options
