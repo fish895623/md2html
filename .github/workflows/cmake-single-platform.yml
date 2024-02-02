@@ -15,10 +15,10 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -GNinja
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --parallel
 
     - name: Test
       working-directory: ${{github.workspace}}/build
@@ -31,3 +31,8 @@ jobs:
         excludes: |
           ./build
           main.cpp
+    - name: GCOVR Action
+      working-directory: ${{github.workspace}}/build
+      run: |
+        python -m pip install gcovr
+        python -m gcovr -r .. --exclude=../main.cpp --exclude=_deps/
