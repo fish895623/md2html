@@ -15,4 +15,4 @@ jobs:
       - name: Run tests
         run: |
           export PATH=$HOME/.cargo/bin:$PATH
-          cargo tarpaulin --queit -- --nocapture --color=always --shuffle -Z unstable-options
+          cargo tarpaulin -- --nocapture --color=always --shuffle -Z unstable-options
