@@ -1,9 +1,4 @@
-[project]
-name = "pymd2html"
-version = "0.1.0"
-description = ""
-readme = "README.md"
-[project.entry-points."hello"]
+[tool.poetry.scripts]
 pymd2html = "pymd2html:main"
 
 [tool.poetry]
