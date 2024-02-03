@@ -1,11 +1,17 @@
+[project]
+name = "pymd2html"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+[project.entry-points."hello"]
+pymd2html = "pymd2html:main"
+
 [tool.poetry]
 name = "pymd2html"
 version = "0.1.0"
 description = ""
-authors = ["Bae Sung Hoon <dan990429@gmail.com>"]
 readme = "README.md"
-include = [{ path = "pymd2html", format = "sdist" }]
-
+authors = ["Bae Sung Hoon <dan990429@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.11"
 
