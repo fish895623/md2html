@@ -15,10 +15,10 @@ struct Context {
 
 fn parse_header_context(context: String) -> Result<Vec<Context>> {
   let return_value = context;
-  let asdf = Regex::new(r"^(#+)\s(.*)$").unwrap();
+  let header_regex = Regex::new(r"^(#+)\s(.*)$").unwrap();
 
   let mut results = Vec::new();
-  for (_, [path, line]) in asdf
+  for (_, [path, line]) in header_regex
     .captures_iter(return_value.as_str())
     .map(|c| c.extract())
   {
