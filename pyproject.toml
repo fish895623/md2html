@@ -1,5 +1,5 @@
 [tool.poetry.scripts]
-pymd2html = "pymd2html"
+pymd2html = "pymd2html:__main__"
 
 [tool.poetry]
 name = "pymd2html"
