@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Bae Sung Hoon <dan990429@gmail.com>"]
 readme = "README.md"
+include = [{ path = "pymd2html", format = "sdist" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
