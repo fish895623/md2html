@@ -5,7 +5,7 @@ use walkdir::WalkDir;
 
 #[cfg(not(tarpaulin))]
 fn main() -> Result<()> {
-  let all_files_in_directory = find_all_markdown_recursively_in_path()?;
+  let all_files_in_directory = find_all_markdown_recursively_in_path(".")?;
   for file in all_files_in_directory {
     println!("file: {}", file);
   }
@@ -19,18 +19,16 @@ struct Context {
 }
 
 fn parse_header_context(context: String) -> Result<Vec<Context>> {
-  let return_value = context;
-  let header_regex = Regex::new(r"^(#+)\s(.*)$").unwrap();
+  let return_value: String = context;
+  let header_regex: Regex = Regex::new(r"^(#+)\s(.*)$").unwrap();
 
   let mut results = Vec::new();
   for (_, [path, line]) in header_regex
     .captures_iter(return_value.as_str())
     .map(|c| c.extract())
   {
-    let level = path.to_string().len();
-
     results.push(Context {
-      level: level as i128,
+      level: path.to_string().len() as i128,
       text: line.to_string(),
     });
   }
@@ -38,8 +36,8 @@ fn parse_header_context(context: String) -> Result<Vec<Context>> {
   Ok(results)
 }
 
-fn find_all_markdown_recursively_in_path() -> Result<Vec<String>> {
-  let root_path = Path::new(".");
+fn find_all_markdown_recursively_in_path(path: &str) -> Result<Vec<String>> {
+  let root_path = Path::new(&path);
   let markdown_pattern = Regex::new(r".*\.md$").unwrap();
   let mut return_value = Vec::new();
 
@@ -84,9 +82,19 @@ mod main_tests {
   #[test]
   fn test_find_all_files_in_path() {
     init_logger();
-    let result = find_all_files_in_path().unwrap();
-    for file in result {
+    let result = find_all_markdown_recursively_in_path(".").unwrap();
+    for file in &result {
       info!("file: {}", file);
     }
+    assert_eq!(result.len(), 2);
+  }
+  #[test]
+  fn test_find_all_files_in_path_with_no_files() {
+    init_logger();
+    let result = find_all_markdown_recursively_in_path(".").unwrap();
+    for file in &result {
+      info!("file: {}", file);
+    }
+    assert_eq!(result.len(), 2);
   }
 }
