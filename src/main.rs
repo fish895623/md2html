@@ -1,9 +1,14 @@
 use regex::Regex;
 use std::io::Result;
+use std::path::Path;
+use walkdir::WalkDir;
 
 #[cfg(not(tarpaulin))]
 fn main() -> Result<()> {
-  println!("Hello, world!");
+  let all_files_in_directory = find_all_markdown_recursively_in_path()?;
+  for file in all_files_in_directory {
+    println!("file: {}", file);
+  }
 
   Ok(())
 }
@@ -33,6 +38,25 @@ fn parse_header_context(context: String) -> Result<Vec<Context>> {
   Ok(results)
 }
 
+fn find_all_markdown_recursively_in_path() -> Result<Vec<String>> {
+  let root_path = Path::new(".");
+  let markdown_pattern = Regex::new(r".*\.md$").unwrap();
+  let mut return_value = Vec::new();
+
+  for entry in WalkDir::new(root_path).into_iter().filter_map(|e| e.ok()) {
+    if entry.file_type().is_file() {
+      if let Some(file_name) = entry.file_name().to_str() {
+        if markdown_pattern.is_match(file_name) {
+          let file_path = entry.path().to_str().unwrap().to_owned();
+          return_value.push(file_path);
+        }
+      }
+    }
+  }
+
+  Ok(return_value)
+}
+
 #[cfg(test)]
 mod main_tests {
   use log::info;
@@ -55,6 +79,14 @@ mod main_tests {
     for context in result {
       assert_eq!(context.level, 2);
       assert_eq!(context.text, "Hello World");
+    }
+  }
+  #[test]
+  fn test_find_all_files_in_path() {
+    init_logger();
+    let result = find_all_files_in_path().unwrap();
+    for file in result {
+      info!("file: {}", file);
     }
   }
 }
