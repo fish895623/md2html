@@ -4,6 +4,8 @@ import os.path
 import re
 from logging import getLogger
 
+import markdown
+
 logging.basicConfig(level=logging.DEBUG)
 log = getLogger("pymd2html.hello")
 
@@ -29,4 +31,5 @@ if __name__ == "__main__":
     a = find_all_markdowns_recursively(exclude="./test/exclude*")
 
     for i in a:
+        markdown.markdownFromFile(input=i, output=i.replace(".md", ".html"))
         log.info(i)

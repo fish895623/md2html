@@ -9,6 +9,7 @@ readme = "README.md"
 authors = ["Bae Sung Hoon <dan990429@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.11"
+flask = "^3.0.2"
 
 
 [build-system]
